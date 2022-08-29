@@ -6,16 +6,19 @@ import { useState, useEffect } from 'react';
 
 function Rowpost() {
 
-    const [poster, setposter] = useState(0);
+    const [poster, Setposter] = useState([]);
 
-    useEffect(() => {
 
-        console.log('i fire once');
+    // useEffect(() => {
 
-        axios.get("https://jsonplaceholder.typicode.com/albums/1/photos").then((response) => {
-            setposter(response.data)
-        })
-    }, []);
+    //     axios.get("https://api.themoviedb.org/3/discover/movie?api_key=0b8aaf176e25bd1f5061399efbd04d47&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=28&with_watch_monetization_types=flatrate").then((response) => {
+    //         Setposter(response.data);
+    //         console.log(poster)
+    //     })
+
+
+    // }, [])
+
 
 
     return (
@@ -24,18 +27,16 @@ function Rowpost() {
             <h1>Title </h1>
             <div className="posters">
                 {
-                  
-                    poster && (
-                        
-                        poster.map((posteer, index) => {
-                            
-                            return (
-                                <img className='poster' key={index} src={posteer.url} alt="Poster Card" />
-                            )
-                        })
-                    )
-                }
+                    // poster &&
 
+                    // poster.map((posteer, index) => {
+
+                    //     return (
+                    //         <img className='poster' key={index} src={posteer.backdrop_path} alt="Poster Card" />
+                    //     )
+                    // })
+
+                }
 
             </div>
         </div>

@@ -1,8 +1,25 @@
-import React from 'react'
+import React , { useState, useEffect } from 'react'
+import { API_KEY } from '../Constants/constants';
+import axios from '../../axios'
 import './Banner.css'
-import axios from 'axios'
+
 
 function Banner() {
+
+  useEffect(() => {
+
+    axios.get(`/trending/all/week?api_key=${API_KEY}&language=en-US`).then((response) => {
+      // console.log("hi");
+      console.log(response.data)
+
+    })
+
+  }, [])
+
+
+
+
+
   return (
     <div className='banner'>
       <div className='content'>
@@ -10,7 +27,7 @@ function Banner() {
         <div className='banner_button'>
           <button className='button' onClick={() => {
             axios.get("https://jsonplaceholder.typicode.com/albums/1/photos").then((response) => {
-              
+
               console.log(response.data)
             })
           }}
