@@ -10,7 +10,8 @@ function App() {
     <div className="App">
       <NavBar></NavBar>
       <Banner></Banner>
-      <Rowpost></Rowpost>
+      <Rowpost name="TEST" type="top"></Rowpost>
+      <Rowpost name="DEMO" type="bottam"></Rowpost> 
     </div>
   );
 }

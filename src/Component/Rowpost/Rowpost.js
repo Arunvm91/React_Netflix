@@ -1,40 +1,40 @@
 import React from 'react'
 import './Rowpost.css'
-import axios from 'axios';
+import axios from '../../axios';
+import { API_KEY, IMG_URL } from '../Constants/constants';
 import { useState, useEffect } from 'react';
 
 
-function Rowpost() {
+function Rowpost(props) {
 
     const [poster, Setposter] = useState([]);
 
+    useEffect(() => {
 
-    // useEffect(() => {
+        axios.get(`/discover/tv?api_key=${API_KEY}&with_networks=213`).then((response) => {
+            Setposter(response.data.results)
+            console.log(response.data)
+        })
 
-    //     axios.get("https://api.themoviedb.org/3/discover/movie?api_key=0b8aaf176e25bd1f5061399efbd04d47&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=28&with_watch_monetization_types=flatrate").then((response) => {
-    //         Setposter(response.data);
-    //         console.log(poster)
-    //     })
+    }, [])
 
-
-    // }, [])
-
+    console.log(props)
 
 
     return (
 
         <div className='row'>
-            <h1>Title </h1>
+            <h1>{props.name}</h1>
             <div className="posters">
                 {
-                    // poster &&
+                    poster &&
 
-                    // poster.map((posteer, index) => {
+                    poster.map((posteer, index) => {
 
-                    //     return (
-                    //         <img className='poster' key={index} src={posteer.backdrop_path} alt="Poster Card" />
-                    //     )
-                    // })
+                        return (
+                            <img className={props.type == "top" ? "poster" : "small-poster"} key={index} src={`${IMG_URL + posteer.backdrop_path}`} alt="Poster Card" />
+                        )
+                    })
 
                 }
 
