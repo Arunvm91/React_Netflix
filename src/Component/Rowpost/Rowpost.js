@@ -1,25 +1,46 @@
 import React from 'react'
 import './Rowpost.css'
 import axios from '../../axios';
-import { API_KEY, IMG_URL } from '../Constants/constants';
+import { IMG_URL, API_KEY } from '../Constants/constants';
 import { useState, useEffect } from 'react';
+import YouTube from 'react-youtube';
 
 
 function Rowpost(props) {
 
     const [poster, Setposter] = useState([]);
+    const [videourl, Setvideourl] = useState('');
 
     useEffect(() => {
 
-        axios.get(`/discover/tv?api_key=${API_KEY}&with_networks=213`).then((response) => {
+        axios.get(props.url).then((response) => {
             Setposter(response.data.results)
-            console.log(response.data)
         })
 
     }, [])
 
-    console.log(props)
+    const clickhandle = (movie_id) => {
 
+        axios.get(`/movie/${movie_id}/videos?api_key=${API_KEY}&language=en-US`).then((response) => {
+
+            response.data.results.length !== 0 &&
+                Setvideourl(response.data.results[0].key)
+
+        }).catch((response) => {
+            console.log(response)
+
+        })
+
+    }
+
+
+    const opts = {
+        height: '390',
+        width: '100%',
+        playerVars: {
+            autoplay: 1
+        },
+    };
 
     return (
 
@@ -32,13 +53,20 @@ function Rowpost(props) {
                     poster.map((posteer, index) => {
 
                         return (
-                            <img className={props.type == "top" ? "poster" : "small-poster"} key={index} src={`${IMG_URL + posteer.backdrop_path}`} alt="Poster Card" />
+                            <div key={index}>
+                                <img onClick={() => clickhandle(posteer.id)} className={props.type ? "poster" : "small-poster"} key={index} src={`${IMG_URL + posteer.backdrop_path}`} alt="Poster Card" />
+                            </div>
                         )
                     })
-
                 }
-
             </div>
+
+            {videourl &&
+
+                <YouTube videoId={videourl} opts={opts} />
+
+            }
+
         </div>
     )
 }
